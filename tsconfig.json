@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "startbootstrap-sb-admin-2"  ]
 }
