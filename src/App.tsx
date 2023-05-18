@@ -8,6 +8,7 @@ import Login from "./pages/login/login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./pages/register/register";
 import ContactUs from "./pages/contact-us/contact-us";
+import Dashboard from "./pages/dashboard/dashBoard";
 
 function App() {
   return (
@@ -16,10 +17,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/contactUs" element={<ContactUs />} />
-        {/* <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} />  */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

@@ -56,6 +56,14 @@
   padding: 0.5rem;
   background-color: rgba(21, 67, 96, 0.1); /* Updated background color */
   color: #154360; /* Updated text color */
+  width: 100%;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #0b2a3d; /* Updated focus border color */
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(11, 42, 61, 0.25); /* Updated focus box shadow */
 }
 
 .btn-primary {

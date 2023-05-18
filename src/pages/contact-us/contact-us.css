@@ -96,10 +96,12 @@ textarea.form-control {
 
 /* Contact Information Styles */
 .info-container {
-  background-color: #f5f5f5;
-  padding: 30px;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.myCard {
+  padding: 2rem;
 }
 
 .contactSupportSection {
@@ -111,7 +113,7 @@ textarea.form-control {
 }
 
 .contactSupportSection a.btn-secondary {
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .contactSupportSection a.btn-secondary:hover {

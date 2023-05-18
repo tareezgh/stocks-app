@@ -1,0 +1,37 @@
+/* dashboard.css */
+
+/* Colors */
+:root {
+  --primary-color: #007bff; /* Change to your desired primary color */
+  --secondary-color: #6c757d; /* Change to your desired secondary color */
+  --background-color: #f8f9fa; /* Change to your desired background color */
+  --navbar-bg-color: #fbfcfd; /* Change to your desired navbar background color */
+}
+
+/* Override Bootstrap variables */
+.navbar-dark .navbar-brand {
+  color: #fff; /* Navbar brand text color */
+  font-weight: bold;
+}
+
+.navbar-dark {
+  background-color: var(--navbar-bg-color); /* Navbar background color */
+}
+
+.card {
+  background-color: #fff;
+  border-color: var(--secondary-color);
+}
+
+.card-title {
+  color: var(--primary-color);
+}
+
+.table {
+  background-color: #fff;
+}
+
+.navbar-brand {
+  margin-left: 1rem;
+}
+/* Add more custom styling as needed */

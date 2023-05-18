@@ -73,7 +73,7 @@ function ContactUs() {
         <div className="col-md-4">
           <div className="info-container">
             <div className="card mb-5 contactSupportSection">
-              <div className="card-body">
+              <div className="card-body myCard">
                 <h5 className="card-title">NEED 24/7 SUPPORT</h5>
                 <a
                   href="mailto:support@example.com"

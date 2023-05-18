@@ -1,0 +1,51 @@
+/* Sidebar.css */
+
+.sidebar {
+  width: 240px;
+  height: 100%;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* HamburgerMenu.css */
+
+.hamburger-menu {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .hamburger-menu {
+    display: block;
+    cursor: pointer;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -240px;
+    width: 240px;
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    transition: left 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+}

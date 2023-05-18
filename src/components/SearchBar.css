@@ -1,0 +1,13 @@
+/* SearchBar.css */
+.search-input {
+  background-color: white;
+  color: black;
+}
+
+.search-button {
+  background-color: #fff;
+}
+
+.search-icon {
+  color: rgb(100, 168, 220);
+}
