@@ -1,5 +1,11 @@
 /* dashboard.css */
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 /* Colors */
 :root {
   --primary-color: #007bff; /* Change to your desired primary color */
@@ -8,14 +14,33 @@
   --navbar-bg-color: #fbfcfd; /* Change to your desired navbar background color */
 }
 
-/* Override Bootstrap variables */
-.navbar-dark .navbar-brand {
-  color: #fff; /* Navbar brand text color */
-  font-weight: bold;
+.full-page-container {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.navbar-dark {
-  background-color: var(--navbar-bg-color); /* Navbar background color */
+.main-row {
+  display: flex;
+}
+
+.sidebar-col {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  height: 100%;
+  /* width: 100px; */
+  background-color: #f2f2f2;
+  margin-left: -12px;
+  margin-right: 20px;
+}
+
+.content-col {
+  padding-left: 20px; /* Add spacing between sidebar and content */
+}
+
+.cards-row {
+  margin-top: 20px; /* Add spacing between search bar and cards */
 }
 
 .card {

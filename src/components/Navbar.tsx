@@ -5,8 +5,8 @@ import { AiOutlineHome } from "react-icons/ai";
 function MyNavbar() {
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">
-        <AiOutlineHome size={30} className="ml-3" />
+      <Navbar.Brand href="#home" className="ms-5">
+        <AiOutlineHome size={30} />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

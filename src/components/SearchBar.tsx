@@ -1,39 +1,38 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Form, FormControl, Button } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import "./SearchBar.css";
+import { fetchData } from "../fetchData";
+import { setAllStocks } from "../redux/slicers";
 
-const SearchBar: React.FC = () => {
+const SearchBar = () => {
+  const [searchInput, setSearchInput] = useState<string>("");
+  const dispatch = useDispatch();
+
+  const searchItems = (searchValue: string) => {
+    setSearchInput(searchValue.toLowerCase());
+  };
+
+  const searchAndAdd = async () => {
+    fetchData(
+      "https://api.stockdata.org/v1/data/quote?symbols=AACG%2CTSLA%2CMSFT&api_token=Vvsz1mUqFChImHM80elcL05mN6xDL5CluckUw4rX"
+    ).then((res) => dispatch(setAllStocks(res)));
+  };
+
   return (
-    <form className="form-inline my-2 my-lg-0 ml-auto d-flex ">
+    <Form className="form-inline ml-auto d-flex ">
       <FormControl
         type="text"
-        placeholder="Search"
+        placeholder="Enter stock symbol "
         className="mr-sm-2 search-input"
+        onChange={(e) => searchItems(e.target.value)}
       />
-      <Button className="search-button">
+      <Button className="search-button" onClick={searchAndAdd}>
         <BsSearch className="search-icon" />
       </Button>
-    </form>
+    </Form>
   );
 };
 
 export default SearchBar;
-
-// import React from 'react';
-// import { Form, FormControl, Button } from 'react-bootstrap';
-// import { BsSearch } from 'react-icons/bs';
-
-// const SearchBar: React.FC = () => {
-//   return (
-//     <Form inline>
-//       <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-//       <Button variant="outline-primary">
-//         <BsSearch />
-//       </Button>
-//     </Form>
-//   );
-// };
-
-// export default SearchBar;

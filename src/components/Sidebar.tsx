@@ -3,7 +3,7 @@ import "./Sidebar.css";
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="sidebar">
+    <aside className="sidebar" style={{ width: "auto" }}>
       <ul>
         <li>
           <a href="#">Dashboard</a>

@@ -1,36 +1,39 @@
 import React from "react";
+import "./signUp.css";
 import {
   Container,
   Row,
   Col,
+  Card,
+  CardBody,
+  CardTitle,
   Form,
   FormGroup,
   Label,
   Input,
   Button,
-  Card,
-  CardBody,
-  CardFooter,
   NavLink,
+  CardFooter,
 } from "reactstrap";
-import "./login.css"; // Custom CSS file for additional styling
 
-const Login = () => {
+const SignUp = () => {
   return (
-    <div className="login-page">
+    <div className="signup-page">
       <Container>
         <Row className="justify-content-center">
           <Col sm={8} md={6} lg={4}>
             <Card>
               <CardBody>
-                <h3 className="text-center card-title-large">Log In</h3>
+                <CardTitle className="text-center card-title-large">
+                  Create an Account
+                </CardTitle>
                 <Form>
                   <FormGroup>
-                    <Label for="username">User name</Label>
+                    <Label for="email">Email</Label>
                     <Input
-                      type="text"
-                      id="username"
-                      placeholder="Enter your username"
+                      type="email"
+                      id="email"
+                      placeholder="Enter your email"
                     />
                   </FormGroup>
                   <FormGroup>
@@ -40,19 +43,25 @@ const Login = () => {
                       id="password"
                       placeholder="Enter your password"
                     />
-                    <NavLink className="forgot-password" href="#">
-                      Forgot password?
-                    </NavLink>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="confirmPassword">Confirm Password</Label>
+                    <Input
+                      type="password"
+                      id="confirmPassword"
+                      placeholder="Confirm your password"
+                    />
                   </FormGroup>
                   <Button color="primary" block>
-                    Login
+                    Create my account
                   </Button>
                 </Form>
               </CardBody>
               <CardFooter className="d-flex justify-content-between align-items-center">
-                <p className="signup-text mb-0">
-                  Don't have an account? <NavLink href="#">Sign up</NavLink>
+                <p className="signup-text mb-3 mt-2">
+                  Already have an account?
                 </p>
+                <NavLink href="/sign-in">Sign in</NavLink>
               </CardFooter>
             </Card>
           </Col>
@@ -62,4 +71,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
