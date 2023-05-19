@@ -21,7 +21,7 @@ const SignUp = () => {
     <div className="signup-page">
       <Container>
         <Row className="justify-content-center">
-          <Col sm={8} md={6} lg={4}>
+          <Col sm={8} md={6} lg={6}>
             <Card>
               <CardBody>
                 <CardTitle className="text-center card-title-large">
@@ -57,9 +57,9 @@ const SignUp = () => {
                   </Button>
                 </Form>
               </CardBody>
-              <CardFooter className="d-flex justify-content-between align-items-center">
-                <p className="signup-text mb-3 mt-2">
-                  Already have an account?
+              <CardFooter className="d-flex justify-content-start align-items-center">
+                <p className="signin-text mb-0 me-3">
+                  Already have an account?{" "}
                 </p>
                 <NavLink href="/sign-in">Sign in</NavLink>
               </CardFooter>

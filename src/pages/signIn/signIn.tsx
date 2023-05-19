@@ -19,8 +19,8 @@ const SignIn = () => {
   return (
     <div className="login-page">
       <Container>
-        <Row className="justify-content-center">
-          <Col sm={8} md={6} lg={4}>
+        <Row className="justify-content-center mt-5">
+          <Col sm={8} md={6} lg={6}>
             <Card>
               <CardBody>
                 <h3 className="text-center card-title-large">Log In</h3>
@@ -49,10 +49,9 @@ const SignIn = () => {
                   </Button>
                 </Form>
               </CardBody>
-              <CardFooter className="d-flex justify-content-between align-items-center">
-                <p className="signup-text mb-0">
-                  Don't have an account? <NavLink href="#">Sign up</NavLink>
-                </p>
+              <CardFooter className="d-flex justify-content-start align-items-center">
+                <p className="signup-text mb-0 me-3">Don't have an account? </p>
+                <NavLink href="/sign-up">Sign up</NavLink>
               </CardFooter>
             </Card>
           </Col>
