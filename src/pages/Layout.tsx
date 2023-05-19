@@ -6,8 +6,8 @@ const Layout = () => {
 
   useEffect(() => {
     const currentUser = localStorage.getItem("username");
-    // console.log(currentUser);
-    // currentUser === null ? navigate("/sign-in") : navigate("/dashboard");
+    console.log(currentUser);
+    currentUser === null ? navigate("/sign-in") : navigate("/dashboard");
   }, []);
   return <></>;
 };

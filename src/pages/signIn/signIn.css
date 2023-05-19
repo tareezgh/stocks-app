@@ -66,6 +66,11 @@
   box-shadow: 0 0 0 0.2rem rgba(11, 42, 61, 0.25); /* Updated focus box shadow */
 }
 
+.remember-me,
+.sign-up-text {
+  color: #154360;
+}
+
 .btn-primary {
   background-color: #154360; /* Updated button background color */
   border: none;
@@ -80,6 +85,7 @@
   color: #154360; /* Updated link color */
   text-decoration: none;
   padding: 0;
+  font-weight: 500;
 }
 
 .nav-link:hover {
@@ -94,8 +100,3 @@
 }
 
 /* ******************** */
-
-.forgot-password {
-  padding-left: 0;
-  padding-top: 0.7rem;
-}
