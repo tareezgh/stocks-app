@@ -5,6 +5,7 @@ import { BsSearch } from "react-icons/bs";
 import { updateUserStocks } from "../fetchData";
 import { setAllStocks } from "../redux/slicers";
 import "./SearchBar.css";
+import { toast } from "react-toastify";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -22,8 +23,14 @@ const SearchBar = () => {
     };
     if (searchInput) {
       await updateUserStocks(args).then((res) => {
-        dispatch(setAllStocks(res.data));
-        console.log(res.data);
+        if (res.data.status === "success") {
+          dispatch(setAllStocks(res.data));
+          toast.success("Added Stock!", {
+            position: "bottom-center",
+            hideProgressBar: true,
+          });
+          setSearchInput(" ");
+        }
       });
     }
   };

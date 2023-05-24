@@ -26,9 +26,9 @@ export const fetchData = async (symbols: string[]) => {
   console.log(stockDataUrl);
 
   try {
-    const response = await axios.get(stockDataUrl);
-    console.log(response.data);
-    return response.data.data;
+    // const response = await axios.get(stockDataUrl);
+    // console.log(response.data);
+    // return response.data.data;
   } catch (error) {
     console.log("error", error);
   }
@@ -76,8 +76,9 @@ export const loginUser = async (user: any) => {
       hideProgressBar: true,
     });
 
-    return args;
+    return true;
   }
+  return false;
 };
 
 export const getUserStocks = async (user: any) => {

@@ -38,7 +38,7 @@ const SignIn = () => {
     if (validInputs(username, password)) {
       loginUser(args).then((res) => {
         if (rememberMe) localStorage.setItem("username", username);
-        navigate("/dashboard");
+        if (res) navigate("/dashboard");
       });
     } else {
       toast.error("Fill all fields please!", {
@@ -63,7 +63,9 @@ const SignIn = () => {
                       type="text"
                       id="username"
                       placeholder="Enter your username or email"
-                      onChange={(text) => setUsername(text.target.value)}
+                      onChange={(text) =>
+                        setUsername(text.target.value.toLowerCase())
+                      }
                     />
                   </FormGroup>
                   <FormGroup>
