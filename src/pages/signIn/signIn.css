@@ -1,17 +1,10 @@
 .login-page {
-  background: linear-gradient(to bottom, #6ab2d8, #2980b9);
-  height: 100vh;
+  height: 80vh;
   display: flex;
-  justify-content: center; /* Horizontally center the container */
+  justify-content: center;
   align-items: center;
 }
 
-@media (min-width: 768px) {
-  /* Apply margin on tablet and larger screens */
-  .container {
-    margin-top: 150px; /* Add the desired margin-top value */
-  }
-}
 .card {
   border-radius: 10px;
   border: none;
@@ -33,12 +26,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Add this line to enable wrapping */
+  flex-wrap: wrap;
 }
 
 .text-center {
   text-align: center;
-  color: #154360; /* Updated text color */
+  color: #154360;
 }
 
 .form-group {
@@ -47,23 +40,23 @@
 
 .form-label {
   font-weight: 500;
-  color: #154360; /* Updated text color */
+  color: #154360;
 }
 
 .form-control {
-  border: 1px solid #154360; /* Updated border color */
+  border: 1px solid #154360;
   border-radius: 0.25rem;
   padding: 0.5rem;
-  background-color: rgba(21, 67, 96, 0.1); /* Updated background color */
-  color: #154360; /* Updated text color */
+  background-color: rgba(21, 67, 96, 0.1);
+  color: #154360;
   width: 100%;
   transition: border-color 0.3s;
 }
 
 .form-control:focus {
-  border-color: #0b2a3d; /* Updated focus border color */
+  border-color: #0b2a3d;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(11, 42, 61, 0.25); /* Updated focus box shadow */
+  box-shadow: 0 0 0 0.2rem rgba(11, 42, 61, 0.25);
 }
 
 .remember-me,
@@ -72,24 +65,24 @@
 }
 
 .btn-primary {
-  background-color: #154360; /* Updated button background color */
+  background-color: #154360;
   border: none;
-  color: #fff; /* Button text color */
+  color: #fff;
 }
 
 .btn-primary:hover {
-  background-color: #0b2a3d; /* Updated hover background color */
+  background-color: #0b2a3d;
 }
 
 .nav-link {
-  color: #154360; /* Updated link color */
+  color: #154360;
   text-decoration: none;
   padding: 0;
   font-weight: 500;
 }
 
 .nav-link:hover {
-  color: #0b2a3d; /* Updated hover link color */
+  color: #0b2a3d;
 }
 
 @media (min-width: 576px) {
@@ -98,5 +91,3 @@
     padding-top: 3rem;
   }
 }
-
-/* ******************** */

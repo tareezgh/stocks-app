@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,11 +9,13 @@ import SignUp from "./pages/signUp/signUp";
 import ContactUs from "./pages/contact-us/contact-us";
 import Dashboard from "./pages/dashboard/dashBoard";
 import Layout from "./pages/Layout";
+import MyNavbar from "./components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
       <ToastContainer />
+      <MyNavbar />
       <Routes>
         <Route path="/" element={<Layout />} />
         <Route path="/sign-in" element={<SignIn />} />

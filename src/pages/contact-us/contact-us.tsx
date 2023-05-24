@@ -1,10 +1,6 @@
-import React from "react";
 import "./contact-us.css";
-
-import LocationOnIcon from "@material-ui/icons/LocationOn";
-import PhoneIcon from "@material-ui/icons/Phone";
-import EmailIcon from "@material-ui/icons/Email";
-import MyNavbar from "../../components/Navbar";
+import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import { LocationOn, Phone, Email } from "@material-ui/icons";
 
 function ContactUs() {
   const handleSubmit = (event: any) => {
@@ -13,97 +9,82 @@ function ContactUs() {
 
   return (
     <>
-      <MyNavbar />
-      <div className="container mt-5">
+      <div className="container mt-3">
         <h1 className="mb-5 text-center">Contact Us</h1>
-        <div className="row">
-          <div className="col-md-8">
+        <Row>
+          <Col md={8}>
             <div className="contact-form-container">
-              <form id="contact-form" onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    name="name"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="subject" className="form-label">
-                    Subject *
-                  </label>
-                  <select className="form-select" id="subject" name="subject">
+              <Form id="contact-form" onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="name">
+                  <Form.Label>Name *</Form.Label>
+                  <Form.Control type="text" name="name" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="email">
+                  <Form.Label>Email *</Form.Label>
+                  <Form.Control type="email" name="email" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="subject">
+                  <Form.Label>Subject *</Form.Label>
+                  <Form.Select name="subject">
                     <option value="">-- Select a subject --</option>
-                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="General">General</option>
                     <option value="Technical Support">Technical Support</option>
-                    <option value="Billing">Billing</option>
                     <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="message" className="form-label">
-                    Message
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="message"
-                    name="message"
-                    rows={5}
-                  ></textarea>
-                </div>
-                <button type="submit" className="btn btn-primary">
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="message">
+                  <Form.Label>Message</Form.Label>
+                  <Form.Control as="textarea" rows={5} name="message" />
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  style={{ borderRadius: "4px" }}
+                >
                   Submit
-                </button>
-              </form>
+                </Button>
+              </Form>
             </div>
-          </div>
+          </Col>
 
-          <div className="col-md-4">
+          <Col md={4}>
             <div className="info-container">
-              <div className="card mb-5 contactSupportSection">
-                <div className="card-body myCard">
-                  <h5 className="card-title">NEED 24/7 SUPPORT</h5>
-                  <a
+              <Card className="mb-5 contactSupportSection">
+                <Card.Body className="myCard">
+                  <Card.Title>NEED 24/7 SUPPORT</Card.Title>
+                  <Button
                     href="mailto:support@example.com"
-                    className="btn btn-secondary"
+                    variant="primary"
+                    className="ms-4"
                   >
                     Contact Support
-                  </a>
-                </div>
-              </div>
+                  </Button>
+                </Card.Body>
+              </Card>
 
-              <div className="card mt-5">
-                <div className="card-body">
+              <Card className="mt-5 ">
+                <Card.Body className="contact-info">
                   <h2 className="mb-4">Contact Information</h2>
                   <p className="mb-4">
-                    <LocationOnIcon className="me-2" />
+                    <LocationOn className="me-2" />
                     123 Main Street
                     <br />
-                    <PhoneIcon className="me-2" />
+                    <Phone className="me-2" />
                     555-123-4567
                     <br />
-                    <EmailIcon className="me-2" />
-                    <a href="mailto:support@example.com">support@example.com</a>
+                    <Email className="me-2" />
+                    <a
+                      href="mailto:support@example.com"
+                      className="email-link "
+                    >
+                      support@example.com
+                    </a>
                   </p>
-                </div>
-              </div>
+                </Card.Body>
+              </Card>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     </>
   );

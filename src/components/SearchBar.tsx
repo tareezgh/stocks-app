@@ -2,22 +2,30 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, FormControl, Button } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-import "./SearchBar.css";
-import { fetchData } from "../fetchData";
+import { updateUserStocks } from "../fetchData";
 import { setAllStocks } from "../redux/slicers";
+import "./SearchBar.css";
 
 const SearchBar = () => {
-  const [searchInput, setSearchInput] = useState<string>("");
   const dispatch = useDispatch();
+  const currentUser = localStorage.getItem("username");
+  const [searchInput, setSearchInput] = useState<string>("");
 
   const searchItems = (searchValue: string) => {
     setSearchInput(searchValue.toLowerCase());
   };
 
   const searchAndAdd = async () => {
-    fetchData(
-      "https://api.stockdata.org/v1/data/quote?symbols=AACG%2CTSLA%2CMSFT&api_token=Vvsz1mUqFChImHM80elcL05mN6xDL5CluckUw4rX"
-    ).then((res) => dispatch(setAllStocks(res)));
+    const args = {
+      username: currentUser,
+      stockToAdd: searchInput,
+    };
+    if (searchInput) {
+      await updateUserStocks(args).then((res) => {
+        dispatch(setAllStocks(res.data));
+        console.log(res.data);
+      });
+    }
   };
 
   return (

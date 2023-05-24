@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./signIn.css";
@@ -37,7 +37,7 @@ const SignIn = () => {
   const onLoginClick = () => {
     if (validInputs(username, password)) {
       loginUser(args).then((res) => {
-        if (rememberMe) localStorage.setItem("username", res?.username);
+        if (rememberMe) localStorage.setItem("username", username);
         navigate("/dashboard");
       });
     } else {
@@ -58,16 +58,16 @@ const SignIn = () => {
                 <h3 className="text-center card-title-large">Log In</h3>
                 <Form>
                   <FormGroup>
-                    <Label for="username">User name</Label>
+                    <Label for="username">Username or Email*</Label>
                     <Input
                       type="text"
                       id="username"
-                      placeholder="Enter your username"
+                      placeholder="Enter your username or email"
                       onChange={(text) => setUsername(text.target.value)}
                     />
                   </FormGroup>
                   <FormGroup>
-                    <Label for="password">Password</Label>
+                    <Label for="password">Password*</Label>
                     <Input
                       type="password"
                       id="password"

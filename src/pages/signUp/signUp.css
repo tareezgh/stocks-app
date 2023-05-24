@@ -1,6 +1,5 @@
 .sign-up-page {
-  background: linear-gradient(to bottom, #6ab2d8, #2980b9);
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,14 +33,6 @@
   border-radius: 0;
 }
 
-button[type="submit"] {
-  border-radius: 0;
-}
-
 .text-center {
   text-align: center;
-}
-
-.mt-3 {
-  margin-top: 1rem;
 }

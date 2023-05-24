@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PasswordValidator from "password-validator";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -89,7 +89,7 @@ const SignUp = () => {
                 </CardTitle>
                 <Form>
                   <FormGroup>
-                    <Label for="username">User Name</Label>
+                    <Label for="username">Username or Email*</Label>
                     <Input
                       type="text"
                       id="username"
@@ -98,7 +98,7 @@ const SignUp = () => {
                     />
                   </FormGroup>
                   <FormGroup>
-                    <Label for="password">Password</Label>
+                    <Label for="password">Password*</Label>
                     <Input
                       type="password"
                       id="password"
@@ -107,7 +107,7 @@ const SignUp = () => {
                     />
                   </FormGroup>
                   <FormGroup>
-                    <Label for="confirmPassword">Confirm Password</Label>
+                    <Label for="confirmPassword">Confirm Password*</Label>
                     <Input
                       type="password"
                       id="confirmPassword"
