@@ -1,10 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const url = "http://localhost:3001/api";
+export const url = "http://localhost:3002/api";
 
 // export const url =
-//   "https://us-central1-stocks-app-server.cloudfunctions.net/server/api";
+//   "https://us-central1-stocks-app-server.cloudfunctions.net/app/api";
 
 export const loginUrl = `${url}/auth/login`;
 export const registerUrl = `${url}/auth/register`;
