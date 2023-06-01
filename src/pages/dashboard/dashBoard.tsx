@@ -1,38 +1,91 @@
 import React, { useEffect, useState } from "react";
 import { setAllStocks } from "../../redux/slicers";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col, Card, Modal } from "react-bootstrap";
-import SearchBar from "../../components/SearchBar";
-import { fetchData, getUserStocks } from "../../fetchData";
+import { toast } from "react-toastify";
+import { BsSearch } from "react-icons/bs";
 import MyChart from "../../components/Chart";
+
+import "./dashboard.css";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Modal,
+  Button,
+  Form,
+  FormControl,
+} from "react-bootstrap";
+
+import {
+  fetchStockData,
+  getUserStocks,
+  updateUserStocks,
+} from "../../fetchData";
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const currentUser = localStorage.getItem("username");
+  const [stock, setStock] = useState();
   const [chartDataOpen, setChartDataOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState<string>("");
   const stocksData = useSelector((state: any) => state.stocks.allStocks);
 
-  const fetch = async () => {
-    await getUserStocks(currentUser).then((res) => {
-      console.log(res.data);
-      fetchData(res.data).then((res) => dispatch(setAllStocks(res)));
-    });
+  const apiResponse: any[] = [];
+
+  const fetchStocks = async () => {
+    try {
+      const userStocks = await getUserStocks(currentUser);
+      console.log(userStocks.data);
+      for (const data of userStocks.data) {
+        const res = await fetchStockData(data);
+        apiResponse.push(res);
+      }
+      dispatch(setAllStocks(apiResponse));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    fetch();
-    const interval = setInterval(() => {
-      fetch();
-    }, 5 * 60 * 1000); // Code to run every 5 minutes (in milliseconds)
-    // Cleanup function to clear the interval when the component unmounts
-    return () => {
-      clearInterval(interval);
-    };
+    fetchStocks();
+
+    // const interval = setInterval(() => {
+    //   fetch();
+    // }, 5 * 60 * 1000);  // Code to run every 5 minutes (in milliseconds)
+    // //Cleanup function to clear the interval when the component unmounts
+    // return () => {
+    //   clearInterval(interval);
+    // };
   }, []);
 
   const toggleStockChart = (stock?: any) => {
     setChartDataOpen(!chartDataOpen);
     console.log(stock);
+    setStock(stock);
+  };
+
+  const searchItems = (searchValue: string) => {
+    setSearchInput(searchValue.toLowerCase());
+  };
+
+  const searchAndAdd = async () => {
+    const args = {
+      username: currentUser,
+      stockToAdd: searchInput,
+    };
+    if (searchInput) {
+      await updateUserStocks(args).then((res) => {
+        if (res!.data.status === "success") {
+          fetchStocks();
+          toast.success("Added Stock!", {
+            position: "bottom-center",
+            hideProgressBar: true,
+          });
+          setSearchInput(" ");
+        }
+      });
+    }
   };
 
   return (
@@ -40,7 +93,17 @@ const Dashboard: React.FC = () => {
       <Container fluid>
         <Row className="justify-content-center d-flex">
           <Col xs={12} md={7} className="my-5">
-            <SearchBar />
+            <Form className="form-inline ml-auto d-flex ">
+              <FormControl
+                type="text"
+                placeholder="Enter stock symbol "
+                className="mr-sm-2 search-input"
+                onChange={(e) => searchItems(e.target.value)}
+              />
+              <Button className="search-button" onClick={searchAndAdd}>
+                <BsSearch className="search-icon" />
+              </Button>
+            </Form>
           </Col>
         </Row>
 
@@ -59,18 +122,19 @@ const Dashboard: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr onClick={() => toggleStockChart()}>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                      </tr>
-                      {/* {stocksData?.map((stock: any, key: number) => (
+                      {stocksData?.map((stock: any, key: number) => (
                         <tr key={key} onClick={() => toggleStockChart(stock)}>
                           <td>{stock.ticker}</td>
-                          <td>{stock.price}</td>
-                          <td>{stock.day_change}</td>
+                          <td>{stock.ask}</td>
+                          <td
+                            style={{
+                              color: `${stock.dayChange < 0 ? "red" : "green"}`,
+                            }}
+                          >
+                            {stock.dayChange}
+                          </td>
                         </tr>
-                      ))} */}
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -85,7 +149,7 @@ const Dashboard: React.FC = () => {
           <Modal.Title>Stock Chart</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <MyChart />
+          <MyChart stock={stock!} />
         </Modal.Body>
       </Modal>
     </>

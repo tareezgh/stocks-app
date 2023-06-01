@@ -1,11 +1,15 @@
 .search-input {
+  border-radius: 0.25rem;
+  padding: 0.5rem;
   background-color: white;
   color: black;
+  width: 100%;
+  transition: border-color 0.3s;
 }
 
 .search-button {
   width: 100px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .search-button:hover {
@@ -13,5 +17,5 @@
 }
 
 .search-icon {
-  color: rgb(50, 121, 176);
+  color: rgb(38, 116, 175);
 }

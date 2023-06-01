@@ -1,36 +1,116 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const url = "http://localhost:3002/api";
+// export const url = "http://localhost:3002/api";
 
-// export const url =
-//   "https://us-central1-stocks-app-server.cloudfunctions.net/app/api";
+export const url =
+  "https://us-central1-stocks-app-server.cloudfunctions.net/app/api";
 
 export const loginUrl = `${url}/auth/login`;
 export const registerUrl = `${url}/auth/register`;
 export const getStocksUrl = `${url}/auth/getStocks`;
 export const updateStocksUrl = `${url}/auth/updateStocks`;
 
-export const fetchData = async (symbols: string[]) => {
-  let stockDataUrl = `https://api.stockdata.org/v1/data/quote?symbols=`;
+const XRapidAPIKey = "060dab3b8cmshe2f683433cda61bp18f50cjsnedecd3167bd1";
 
-  symbols.forEach((symbol: string, index: number) => {
-    stockDataUrl +=
-      index === symbols.length - 1
-        ? `${symbol.toUpperCase()}`
-        : `${symbol.toUpperCase() + ","}`;
-  });
+interface StockDataItem {
+  Volume: number;
+  Price: number;
+  DateTime: string;
+  Growth: number;
+  CalcString: string;
+  ReferenceDate: string;
+}
 
-  stockDataUrl += "&api_token=Vvsz1mUqFChImHM80elcL05mN6xDL5CluckUw4rX";
+interface StockData {
+  labels: Date[];
+  prices: number[];
+}
 
-  console.log(stockDataUrl);
+const getPerformanceId = async (symbol: string) => {
+  let symbolPerformanceId = "";
+  const getPerformanceIdUrl = {
+    method: "GET",
+    url: "https://ms-finance.p.rapidapi.com/market/v2/auto-complete",
+    params: { q: `${symbol}` },
+    headers: {
+      "X-RapidAPI-Key": XRapidAPIKey,
+      "X-RapidAPI-Host": "ms-finance.p.rapidapi.com",
+    },
+  };
 
   try {
-    // const response = await axios.get(stockDataUrl);
-    // console.log(response.data);
-    // return response.data.data;
+    const response = await axios.request(getPerformanceIdUrl);
+    symbolPerformanceId = response.data.results[0].performanceId;
+    return symbolPerformanceId;
   } catch (error) {
-    console.log("error", error);
+    return null;
+  }
+};
+
+export const fetchStockData = async (symbol: string) => {
+  const symbolPerformanceId = await getPerformanceId(symbol);
+
+  const getData = {
+    method: "GET",
+    url: "https://ms-finance.p.rapidapi.com/stock/v2/get-realtime-data",
+    params: {
+      performanceId: `${symbolPerformanceId}`,
+    },
+    headers: {
+      "X-RapidAPI-Key": XRapidAPIKey,
+      "X-RapidAPI-Host": "ms-finance.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(getData);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    toast.error("Error fetching stock data", {
+      position: "bottom-center",
+      hideProgressBar: true,
+    });
+  }
+};
+
+export const fetchHistoricalStockData = async (symbol: string) => {
+  const symbolPerformanceId = await getPerformanceId(symbol);
+
+  const getHistoricalData = {
+    method: "GET",
+    url: "https://ms-finance.p.rapidapi.com/stock/get-histories",
+    params: {
+      PerformanceId: `${symbolPerformanceId}`,
+    },
+    headers: {
+      "X-RapidAPI-Key": XRapidAPIKey,
+      "X-RapidAPI-Host": "ms-finance.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(getHistoricalData);
+    const data: { [key: string]: StockDataItem[] } = response.data[0];
+    const oneYearData = data["1Y"];
+
+    // Extracting price and date values from the API response
+    const prices = oneYearData.map((item) => item.Price);
+    const dates = oneYearData.map((item) => new Date(item.DateTime));
+
+    // Formatting the chart data
+    const chartData: StockData = {
+      labels: dates,
+      prices: prices,
+    };
+
+    return chartData;
+  } catch (error) {
+    toast.error("Error fetching stock data", {
+      position: "bottom-center",
+      hideProgressBar: true,
+    });
   }
 };
 
@@ -101,14 +181,15 @@ export const updateUserStocks = async (user: any) => {
     username: user.username,
     stockToAdd: user.stockToAdd.toUpperCase(),
   };
-  const response = await axios.patch(updateStocksUrl, args);
-
-  if (response.data.status === "failure") {
-    toast.error(response.data.message, {
+  // Check if the Stock exists first
+  const check = await getPerformanceId(user.stockToAdd.toUpperCase());
+  if (check !== null) {
+    const response = await axios.patch(updateStocksUrl, args);
+    return response;
+  } else {
+    toast.error("Stock doesn't exist", {
       position: "bottom-center",
       hideProgressBar: true,
     });
   }
-
-  return response;
 };
