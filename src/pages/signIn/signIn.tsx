@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./signIn.css";
@@ -28,6 +28,11 @@ const SignIn = () => {
     username,
     password,
   };
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("username");
+    if (currentUser) navigate("/dashboard");
+  }, []);
 
   const validInputs = (username: string, password: string) => {
     if (username && password) return true;

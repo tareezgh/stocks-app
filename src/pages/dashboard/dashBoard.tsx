@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
   const fetchStocks = async () => {
     try {
       const userStocks = await getUserStocks(currentUser);
-      console.log(userStocks.data);
+      // console.log(userStocks.data);
       for (const data of userStocks.data) {
         const res = await fetchStockData(data);
         apiResponse.push(res);

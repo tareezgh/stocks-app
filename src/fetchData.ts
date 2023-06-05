@@ -1,10 +1,10 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const url = "http://localhost:3002/api";
+// export const url = "http://localhost:3002/api";
 
-// export const url =
-//   "https://us-central1-stocks-app-server.cloudfunctions.net/app/api";
+export const url =
+  "https://us-central1-stocks-app-server.cloudfunctions.net/app/api";
 
 export const loginUrl = `${url}/auth/login`;
 export const registerUrl = `${url}/auth/register`;
@@ -65,7 +65,6 @@ export const fetchStockData = async (symbol: string) => {
 
   try {
     const response = await axios.request(getData);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     toast.error("Error fetching stock data", {
@@ -182,8 +181,8 @@ export const updateUserStocks = async (user: any) => {
     stockToAdd: user.stockToAdd.toUpperCase(),
   };
   // Check if the Stock exists first
-  const check = await getPerformanceId(user.stockToAdd.toUpperCase());
-  if (check !== null) {
+  const checkIfExist = await getPerformanceId(user.stockToAdd.toUpperCase());
+  if (checkIfExist !== null) {
     const response = await axios.patch(updateStocksUrl, args);
     return response;
   } else {
