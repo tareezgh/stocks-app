@@ -47,7 +47,10 @@ const ContactUs: React.FC = () => {
         });
       })
       .catch((error: any) => {
-        console.error("Error sending email:", error);
+        toast.error("Error sending email, try again", {
+          position: "bottom-center",
+          hideProgressBar: true,
+        });
       });
   };
 

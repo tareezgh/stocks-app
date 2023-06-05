@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { loginUser } from "../../fetchData";
 import "./signIn.css";
 import {
   Container,
@@ -16,7 +17,6 @@ import {
   CardFooter,
   NavLink,
 } from "reactstrap";
-import { loginUser } from "../../fetchData";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -29,11 +29,6 @@ const SignIn = () => {
     password,
   };
 
-  useEffect(() => {
-    const currentUser = localStorage.getItem("username");
-    if (currentUser) navigate("/dashboard");
-  }, []);
-
   const validInputs = (username: string, password: string) => {
     if (username && password) return true;
     return false;
@@ -42,7 +37,19 @@ const SignIn = () => {
   const onLoginClick = () => {
     if (validInputs(username, password)) {
       loginUser(args).then((res) => {
-        if (rememberMe) localStorage.setItem("username", username);
+        localStorage.setItem("username", username);
+        if (rememberMe) {
+          // Set cookie expiration date (30 days from the current date)
+          const expirationDate = new Date();
+          expirationDate.setDate(expirationDate.getDate() + 30);
+
+          const cookieString =
+            "username=" +
+            encodeURIComponent(username) +
+            "; expires=" +
+            expirationDate.toUTCString();
+          document.cookie = cookieString;
+        }
         if (res) navigate("/dashboard");
       });
     } else {

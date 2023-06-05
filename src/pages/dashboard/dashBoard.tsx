@@ -36,7 +36,6 @@ const Dashboard: React.FC = () => {
   const fetchStocks = async () => {
     try {
       const userStocks = await getUserStocks(currentUser);
-      // console.log(userStocks.data);
       for (const data of userStocks.data) {
         const res = await fetchStockData(data);
         apiResponse.push(res);
@@ -51,8 +50,8 @@ const Dashboard: React.FC = () => {
     fetchStocks();
 
     // const interval = setInterval(() => {
-    //   fetch();
-    // }, 5 * 60 * 1000);  // Code to run every 5 minutes (in milliseconds)
+    //   fetchStocks();
+    // }, 5 * 1000);  // Code to run every 5 seconds (in milliseconds)
     // //Cleanup function to clear the interval when the component unmounts
     // return () => {
     //   clearInterval(interval);
@@ -61,7 +60,6 @@ const Dashboard: React.FC = () => {
 
   const toggleStockChart = (stock?: any) => {
     setChartDataOpen(!chartDataOpen);
-    console.log(stock);
     setStock(stock);
   };
 
@@ -116,9 +114,9 @@ const Dashboard: React.FC = () => {
                   <table className="table text-center">
                     <thead>
                       <tr className="fs-6">
-                        <th>Symbol</th>
-                        <th>Price</th>
-                        <th>Daily change</th>
+                        <th>Stock Symbol</th>
+                        <th>Price [$]</th>
+                        <th>Daily change [%]</th>
                       </tr>
                     </thead>
                     <tbody>
