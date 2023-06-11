@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { loginUser } from "../../fetchData";
@@ -34,23 +34,47 @@ const SignIn = () => {
     return false;
   };
 
+  function getCookieValue(cookieName: string) {
+    const cookieString = document.cookie;
+    const cookieArray = cookieString.split(";");
+
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) === " ") {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(cookieName + "=") === 0) {
+        return decodeURIComponent(cookie.substring(cookieName.length + 1));
+      }
+    }
+    return "";
+  }
+
+  useEffect(() => {
+    const currentUser = getCookieValue("username");
+    console.log("user name is : " + currentUser);
+    currentUser !== "" ? navigate("/dashboard") : navigate("/sign-in");
+  }, []);
+
   const onLoginClick = () => {
     if (validInputs(username, password)) {
       loginUser(args).then((res) => {
-        localStorage.setItem("username", username);
-        if (rememberMe) {
-          // Set cookie expiration date (30 days from the current date)
-          const expirationDate = new Date();
-          expirationDate.setDate(expirationDate.getDate() + 30);
+        if (res) {
+          localStorage.setItem("username", username);
+          if (rememberMe) {
+            // Set cookie expiration date (30 days from the current date)
+            const expirationDate = new Date();
+            expirationDate.setDate(expirationDate.getDate() + 30);
 
-          const cookieString =
-            "username=" +
-            encodeURIComponent(username) +
-            "; expires=" +
-            expirationDate.toUTCString();
-          document.cookie = cookieString;
+            const cookieString =
+              "username=" +
+              encodeURIComponent(username) +
+              "; expires=" +
+              expirationDate.toUTCString();
+            document.cookie = cookieString;
+          }
+          navigate("/dashboard");
         }
-        if (res) navigate("/dashboard");
       });
     } else {
       toast.error("Fill all fields please!", {

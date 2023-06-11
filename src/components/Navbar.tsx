@@ -15,6 +15,20 @@ function MyNavbar() {
     setExpanded(false);
   };
 
+  const onLogoutClick = () => {
+    // Clear the local storage
+    localStorage.removeItem("username");
+
+    // Clear the cookie by setting its expiration to a past date
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() - 1);
+    const cookieString = "username=; expires=" + expirationDate.toUTCString();
+    document.cookie = cookieString;
+
+    // Navigate to the sign-in page
+    navigate("/sign-in");
+  };
+
   return (
     <Navbar
       bg="light"
@@ -49,14 +63,7 @@ function MyNavbar() {
           </NavItem>
 
           <NavItem onClick={handleNavLinkClick}>
-            <Nav.Link
-              onClick={() => {
-                localStorage.removeItem("username");
-                navigate("/sign-in");
-              }}
-            >
-              Log out
-            </Nav.Link>
+            <Nav.Link onClick={onLogoutClick}>Log out</Nav.Link>
           </NavItem>
         </Nav>
       </Navbar.Collapse>
