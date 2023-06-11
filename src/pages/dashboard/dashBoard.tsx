@@ -49,13 +49,13 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchStocks();
 
-    // const interval = setInterval(() => {
-    //   fetchStocks();
-    // }, 5 * 1000);  // Code to run every 5 seconds (in milliseconds)
-    // //Cleanup function to clear the interval when the component unmounts
-    // return () => {
-    //   clearInterval(interval);
-    // };
+    const interval = setInterval(() => {
+      fetchStocks();
+    }, 15 * 60 * 1000); // Code to run every 15 minutes (in milliseconds)
+    //Cleanup function to clear the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const toggleStockChart = (stock?: any) => {
